@@ -22,8 +22,7 @@ const clientList = [];
 
 // On connection, do
 wss.on("connection", (ws) => {
-    
-    // Send we need to identify 
+        
     /* @TODO add init logic here:
 
         - generate new nickname
@@ -42,9 +41,7 @@ wss.on("connection", (ws) => {
             - move client out of clientList
             - notify all clients he left
             - console log client gone and clients count
-            - send a notification to all clients that nickname connected
-            - add handler for incoming message from this client
-    
+
         */          
     });
 });

@@ -40,10 +40,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Webchat</h1>
-      </header>
-      <div>
         {/* Render the chat based on above states */}
-      </div>
+      </header>
     </div>
   );
 }
