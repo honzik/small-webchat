@@ -52,3 +52,25 @@ pre {
 pre p {
   margin: 0;
 }
+
+pre p.server {
+  color: yellow;
+}
+
+pre p.me {
+  color: pink;
+}
+
+
+label {  
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+}
+
+input {
+  width: 80%;
+  margin-left: 1em;
+  font-size: 1rem;
+  padding: 0.2em 1em;
+}

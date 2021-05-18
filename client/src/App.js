@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
+import classNames from 'classnames';
 
 const URL = 'ws://localhost:8080';
 
@@ -38,26 +39,59 @@ function App() {
     }
   }, []);
 
+  // handler for the sending
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {  
+      // store the value
+      const msg = event.target.value;
+
+      // send the message      
+      ws.current.send(msg);
+
+      // clear the field      
+      event.target.value = '';
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Webchat</h1>
+        
         { connected ? (
+
           <div className="App-chat">
             <p>Connected with nickname <em>{nickname}</em></p>
             <pre>
               {messages.map( (msg,i) => 
-                <p key={i}>
+                <p key={i} className={classNames({
+                  'me': msg.nickname === nickname,
+                  'server': msg.nickname === "SERVER"
+                })}>
                   [{msg.nickname}] {msg.message}
                 </p>
               )}
             </pre>
+            <label for="chatinput">
+              {nickname}:
+              <input 
+                type="text" 
+                name="chatinput" 
+                placeholder="type something..." 
+                onKeyDown={handleKeyDown} 
+              />
+            </label>
+            
           </div>
+        
         ) : (
+        
           <div>
             Connecting to server...
           </div>
+        
         )}
+
       </header>
     </div>
   );
