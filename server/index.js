@@ -7,7 +7,6 @@ const characterName = () => uniqueNamesGenerator({ dictionaries: [starWars] });
 // encode object as JSON string
 const objectEncode = object => JSON.stringify(object);
 
-
 // Init websockets server
 const wss = new WebSocket.Server({ port: 8080 });
 console.log("Websockets server ready on localhost:8080");
@@ -16,61 +15,36 @@ console.log("Websockets server ready on localhost:8080");
 const clientList = [];
 
 // Send data wrapper
-const sendData = (ws, specObject) => {
-    ws.send(objectEncode(specObject));
-}
+/* @TODO define sendData function */
 
 // Send to all wrapper
-const sendToAll = (specObject) => {
-    clientList.forEach( client => sendData(client.ws, specObject));
-}
+/* @TODO define sendToAll function */
 
 // On connection, do
 wss.on("connection", (ws) => {
     
     // Send we need to identify 
-    const nickname = characterName();    
+    /* @TODO add init logic here:
 
-    // Add to queue
-    clientList.push({
-        ws,
-        nickname
-    });
+        - generate new nickname
+        - add it to clients list
+        - send ACK to client { ack: true, nickname }
+        - send a notification to all clients that nickname connected
+        - add handler for incoming message from this client
+        - console log client added and client count
     
-    // Ack to client
-    sendData(ws, {
-        nickname,
-        ack: true
-    });
-
-    // Notify all that a new nickname joined
-    sendToAll({
-        nickname: "SERVER",
-        message: `[${nickname}] has joined the chat`
-    });
-
-    // Messages transmitting
-    ws.on('message', (message) => {             
-        sendToAll({ nickname, message})
-    }); 
+    */
 
     // Leaving chat
-    ws.on('close', () => {        
-        // Remove from queue
-        const index = clientList.findIndex( (entry) => entry.nickname === nickname );        
-        if(index > -1) {
-            clientList.splice(index, 1);
-        }
+    ws.on('close', () => {      
+        /* @TODO add remove logic here:
 
-        // Notify all that nickname lest
-        sendToAll({
-            nickname: "SERVER",
-            message: `[${nickname}] has left the chat`
-        });    
-
-        console.log(`Connection closed by: [${nickname}], clients left: ${clientList.length}`);
+            - move client out of clientList
+            - notify all clients he left
+            - console log client gone and clients count
+            - send a notification to all clients that nickname connected
+            - add handler for incoming message from this client
+    
+        */          
     });
-
-    console.log(`Incoming connection has obtained nickname: [${nickname}], clients count: ${clientList.length}`);
-
 });
