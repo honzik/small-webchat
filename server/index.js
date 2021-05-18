@@ -29,8 +29,7 @@ const sendToAll = (specObject) => {
 wss.on("connection", (ws) => {
     
     // Send we need to identify 
-    const nickname = characterName();
-    console.log(`Incoming connection has obtained nickname: [${nickname}]`);
+    const nickname = characterName();    
 
     // Add to queue
     clientList.push({
@@ -56,9 +55,9 @@ wss.on("connection", (ws) => {
     }); 
 
     // Leaving chat
-    ws.on('close', () => {
+    ws.on('close', () => {        
         // Remove from queue
-        const index = clientList.findIndex( (entry) => { entry.nickname === nickname } );
+        const index = clientList.findIndex( (entry) => entry.nickname === nickname );        
         if(index > -1) {
             clientList.splice(index, 1);
         }
@@ -68,6 +67,10 @@ wss.on("connection", (ws) => {
             nickname: "SERVER",
             message: `[${nickname}] has left the chat`
         });    
+
+        console.log(`Connection closed by: [${nickname}], clients left: ${clientList.length}`);
     });
+
+    console.log(`Incoming connection has obtained nickname: [${nickname}], clients count: ${clientList.length}`);
 
 });
