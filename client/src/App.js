@@ -31,7 +31,7 @@ function App() {
         setNickname(msg.nickname);        
       } else {
         // new message - store it in messages
-        setMessages( arr => [...arr, { nickname: msg.nickname, message: msg.message }] );
+        setMessages( arr => [...arr, msg ] );
       }
     }
     return () => {

@@ -28,7 +28,7 @@ const sendToAll = (specObject) => {
 // On connection, do
 wss.on("connection", (ws) => {
     
-    // Send we need to identify 
+    // Gen new nickname
     const nickname = characterName();    
 
     // Add to queue
@@ -46,16 +46,17 @@ wss.on("connection", (ws) => {
     // Notify all that a new nickname joined
     sendToAll({
         nickname: "SERVER",
-        message: `[${nickname}] has joined the chat`
+        message: `<${nickname}> has joined the chat`
     });
 
     // Messages transmitting
     ws.on('message', (message) => {             
-        sendToAll({ nickname, message})
+        sendToAll({ nickname, message });
     }); 
 
     // Leaving chat
     ws.on('close', () => {        
+        
         // Remove from queue
         const index = clientList.findIndex( (entry) => entry.nickname === nickname );        
         if(index > -1) {
@@ -68,9 +69,9 @@ wss.on("connection", (ws) => {
             message: `[${nickname}] has left the chat`
         });    
 
-        console.log(`Connection closed by: [${nickname}], clients left: ${clientList.length}`);
+        console.log(`Connection closed by: <${nickname}>, clients left: ${clientList.length}`);
     });
 
-    console.log(`Incoming connection has obtained nickname: [${nickname}], clients count: ${clientList.length}`);
+    console.log(`Incoming connection has obtained nickname: <${nickname}>, clients count: ${clientList.length}`);
 
 });
