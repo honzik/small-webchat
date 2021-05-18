@@ -1,0 +1,10 @@
+{
+    "name": "small-webchat-server",
+    "version": "1.0.0",
+    "devDependencies": {
+        "ws": "^7.4.1"
+    },
+    "dependencies": {
+        "unique-names-generator": "^4.5.0"
+    }
+}
