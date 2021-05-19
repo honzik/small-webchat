@@ -10,8 +10,7 @@ function App() {
   const [nickname, setNickname] = useState('');
   const [messages, setMessages] = useState([]);
   const ws = useRef(null);
-
-  console.log(messages);
+  const chatWindow = useRef(null);
 
   // connect to ws
   useEffect(() => {
@@ -23,7 +22,7 @@ function App() {
     ws.current.onmessage = event => {
       // decompress message
       const msg = JSON.parse(event.data)    
-      console.log(msg);
+      
       // what kind of message?
       if(msg.ack) {
         // ack only - store nick
@@ -37,6 +36,13 @@ function App() {
       ws.current.close();
     }
   }, []);
+
+  // scroll down after every re-render
+  useEffect(() => {
+    if(chatWindow.current) {
+      chatWindow.current.scrollTop = chatWindow.current.scrollHeight;
+    }
+  });
 
   // handler for the sending
   const handleKeyDown = (event) => {
@@ -61,7 +67,7 @@ function App() {
 
           <div className="App-chat">
             <p>Connected with nickname <em>{nickname}</em></p>
-            <pre>
+            <pre ref={chatWindow}>
               {messages.map( (msg,i) => 
                 <p key={i} className={classNames({
                   'me': msg.nickname === nickname,
@@ -71,7 +77,7 @@ function App() {
                 </p>
               )}
             </pre>
-            <label for="chatinput">
+            <label htmlFor="chatinput">
               {nickname}:
               <input 
                 type="text" 
