@@ -34,7 +34,7 @@ class ChatServer {
      * @return none
      */
     sendTo( ws, messageObject )  {
-        ws.send(objectEncode(messageObject));
+        /* @TODO define this function */
     }
 
     /**
