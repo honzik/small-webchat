@@ -20,7 +20,9 @@ class ChatServer {
 
     /**
      * Send message to all clients
-     * @param object messageObject - contains properties message and nickname
+     * @param object messageObject - contains properties 
+     *                  message:string or ack:bool 
+     *                  nickname:string
      * @return none
      */
     sendToAll( messageObject )  {        
