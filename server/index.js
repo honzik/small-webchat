@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const ChatServer = require('./ChatServer.spec.js');
+const ChatServer = require('./ChatServer.js');
 
 // Init websockets server
 const wss = new WebSocket.Server({ port: 8080 });
