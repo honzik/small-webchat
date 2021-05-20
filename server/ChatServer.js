@@ -30,7 +30,9 @@ class ChatServer {
     /**
      * Send message to one client
      * @param object ws - websockets handle of this client
-     * @param object messageObject - contains properties message and nickname
+     * @param object messageObject - contains properties 
+     *                  message:string or ack:bool 
+     *                  nickname:string
      * @return none
      */
     sendTo( ws, messageObject )  {
