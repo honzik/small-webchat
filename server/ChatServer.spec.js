@@ -8,14 +8,14 @@ class WebSocketServerMock {
 
 const wss = new WebSocketServerMock;
 
-class WebSocket {
+class WebSocketMock {
     constructor() {
         this.send = jest.fn((message) => {});
         this.on = jest.fn((event, method) => {})
     }
 }
 
-const ws = new WebSocket;
+const ws = new WebSocketMock;
 
 
 describe("ChatServer Test Suite", () => {
